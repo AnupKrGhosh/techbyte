@@ -1,0 +1,488 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080c12;--bg2:#0d1220;--bg3:#111827;--bg4:#1a2235;
+  --accent:#00d4ff;--accent2:#7c3aed;--accent3:#10b981;
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+  --border:#1e2d42;--border2:#243350;
+  --font-display:'Syne',sans-serif;--font-mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-display);overflow-x:hidden}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(8,12,18,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:var(--font-mono);font-size:13px;color:var(--accent);letter-spacing:0.05em}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-family:var(--font-mono);font-size:11px;color:var(--text2);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+
+.hero{padding:5rem 2rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,0.08) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-50px;left:-50px;width:400px;height:400px;background:radial-gradient(circle,rgba(0,212,255,0.05) 0%,transparent 70%);pointer-events:none}
+.hero-tag{font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--accent)}
+.hero h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin-bottom:0.5rem}
+.hero h1 span{color:var(--accent)}
+.hero-sub{font-family:var(--font-mono);font-size:13px;color:var(--text2);margin-bottom:1.5rem;line-height:1.8}
+.hero-desc{max-width:600px;color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:2rem}
+.hero-stats{display:flex;gap:2rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column}
+.stat-num{font-size:1.8rem;font-weight:800;color:var(--accent);font-family:var(--font-mono)}
+.stat-label{font-size:11px;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{padding:10px 24px;background:var(--accent);color:#000;font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;border-radius:3px;transition:opacity 0.2s}
+.btn-primary:hover{opacity:0.85}
+.btn-outline{padding:10px 24px;background:transparent;color:var(--accent);font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--accent);cursor:pointer;border-radius:3px;transition:all 0.2s}
+.btn-outline:hover{background:rgba(0,212,255,0.08)}
+.status-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;color:var(--accent3);margin-bottom:1.5rem}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent3);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+section{padding:4rem 2rem;border-top:1px solid var(--border)}
+.section-header{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem}
+.section-label{font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase}
+.section-line{flex:1;height:1px;background:var(--border)}
+.section-title{font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.5rem}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border)}
+.skill-card{background:var(--bg2);padding:1.5rem;transition:background 0.2s;cursor:default}
+.skill-card:hover{background:var(--bg3)}
+.skill-cat{font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem}
+.skill-card h3{font-size:14px;font-weight:700;margin-bottom:0.75rem;color:var(--text)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--font-mono);font-size:10px;padding:3px 8px;border-radius:2px;letter-spacing:0.05em}
+.tag-blue{background:rgba(0,212,255,0.08);color:var(--accent);border:1px solid rgba(0,212,255,0.2)}
+.tag-purple{background:rgba(124,58,237,0.08);color:#a78bfa;border:1px solid rgba(124,58,237,0.2)}
+.tag-green{background:rgba(16,185,129,0.08);color:var(--accent3);border:1px solid rgba(16,185,129,0.2)}
+.tag-orange{background:rgba(249,115,22,0.08);color:#fb923c;border:1px solid rgba(249,115,22,0.2)}
+
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border2)}
+.tl-item{position:relative;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.tl-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.tl-dot{position:absolute;left:-2.4rem;top:4px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--text3)}
+.tl-item.current .tl-dot{border-color:var(--accent);background:rgba(0,212,255,0.15)}
+.tl-date{font-family:var(--font-mono);font-size:10px;color:var(--text3);letter-spacing:0.1em;margin-bottom:4px}
+.tl-company{font-family:var(--font-mono);font-size:11px;color:var(--accent2);letter-spacing:0.05em;margin-bottom:4px}
+.tl-item.current .tl-company{color:var(--accent)}
+.tl-title{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.tl-location{font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-bottom:10px;letter-spacing:0.05em}
+.tl-bullets{list-style:none;display:flex;flex-direction:column;gap:5px}
+.tl-bullets li{font-size:13px;color:var(--text2);line-height:1.6;padding-left:12px;position:relative}
+.tl-bullets li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:10px;top:3px}
+.tl-highlight{color:var(--accent);font-weight:600}
+.current-badge{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:9px;color:var(--accent3);background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);padding:2px 8px;border-radius:2px;margin-left:8px;vertical-align:middle}
+
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border)}
+.cert-card{background:var(--bg2);padding:1.25rem;display:flex;align-items:flex-start;gap:12px;transition:background 0.2s}
+.cert-card:hover{background:var(--bg3)}
+.cert-icon{width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;font-weight:700;font-family:var(--font-mono)}
+.cert-icon.aws{background:rgba(249,115,22,0.1);color:#fb923c;border:1px solid rgba(249,115,22,0.2)}
+.cert-icon.gcp{background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2)}
+.cert-icon.sf{background:rgba(0,212,255,0.08);color:var(--accent);border:1px solid rgba(0,212,255,0.2)}
+.cert-icon.db{background:rgba(249,115,22,0.08);color:#fb923c;border:1px solid rgba(249,115,22,0.15)}
+.cert-icon.k8s{background:rgba(59,130,246,0.08);color:#60a5fa;border:1px solid rgba(59,130,246,0.15)}
+.cert-icon.tf{background:rgba(124,58,237,0.1);color:#a78bfa;border:1px solid rgba(124,58,237,0.2)}
+.cert-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.4}
+.cert-issuer{font-family:var(--font-mono);font-size:10px;color:var(--text3);letter-spacing:0.05em}
+
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border)}
+.blog-card{background:var(--bg2);padding:1.5rem;cursor:pointer;transition:background 0.2s}
+.blog-card:hover{background:var(--bg3)}
+.blog-tag{font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.blog-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.5}
+.blog-excerpt{font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px}
+.blog-meta{font-family:var(--font-mono);font-size:10px;color:var(--text3);display:flex;gap:12px}
+
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+@media(max-width:600px){.contact-grid{grid-template-columns:1fr}}
+.contact-info{display:flex;flex-direction:column;gap:1rem}
+.contact-row{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--border);border-radius:4px;background:var(--bg2)}
+.contact-icon{width:32px;height:32px;border-radius:3px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-icon svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2}
+.contact-text{font-size:12px;color:var(--text);font-family:var(--font-mono)}
+.contact-label{font-size:10px;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px}
+.contact-form{display:flex;flex-direction:column;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-family:var(--font-mono);font-size:10px;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase}
+.form-input{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;font-family:var(--font-mono);font-size:12px;border-radius:3px;transition:border-color 0.2s;outline:none}
+.form-input:focus{border-color:var(--accent)}
+.form-textarea{min-height:100px;resize:vertical}
+.form-submit{padding:11px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all 0.2s}
+.form-submit:hover{background:rgba(0,212,255,0.08)}
+
+.awards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);margin-bottom:3rem}
+.award-card{background:var(--bg2);padding:1.25rem;transition:background 0.2s}
+.award-card:hover{background:var(--bg3)}
+.award-icon{font-size:20px;margin-bottom:8px;display:block}
+.award-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.award-org{font-family:var(--font-mono);font-size:10px;color:var(--text3)}
+
+footer{padding:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.footer-copy{font-family:var(--font-mono);font-size:10px;color:var(--text3)}
+.footer-links{display:flex;gap:1rem}
+.footer-links a{font-family:var(--font-mono);font-size:10px;color:var(--text3);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--accent)}
+
+.scan-line{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:scan 4s ease-in-out infinite;opacity:0.3;pointer-events:none;z-index:999}
+@keyframes scan{0%{transform:translateY(0);opacity:0}10%{opacity:0.3}90%{opacity:0.3}100%{transform:translateY(100vh);opacity:0}}
+</style>
+
+<div class="scan-line"></div>
+
+<nav>
+  <span class="nav-logo">anupghosh.dev</span>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#certs">Certs</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="status-badge"><span class="status-dot"></span> Open to senior / principal roles</div>
+  <div class="hero-tag">AI &amp; Data Platform Engineer</div>
+  <h1>Anup<br><span>Ghosh</span></h1>
+  <div class="hero-sub">dev_lead@barclays // snowflake_cortex_ai // 15+ yrs // glasgow, uk</div>
+  <p class="hero-desc">Building enterprise-scale AI platforms. Currently leading Snowflake Cortex AI rollout across 1,500+ users and 10+ business units at Barclays. Inducted into JPMorgan Chase's global Cloud Hall of Fame.</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">15+</span><span class="stat-label">Years exp</span></div>
+    <div class="stat"><span class="stat-num">$6M</span><span class="stat-label">Cloud savings</span></div>
+    <div class="stat"><span class="stat-num">1500+</span><span class="stat-label">Users served</span></div>
+    <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Business units</span></div>
+  </div>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+    <button class="btn-outline" onclick="document.getElementById('experience').scrollIntoView({behavior:'smooth'})">View work</button>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-header">
+    <span class="section-label">02 // tech_stack</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="section-title">Skills &amp; Technologies</div>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:2rem;font-family:var(--font-mono)">// what I build with</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-cat">01 // AI &amp; GenAI</div>
+      <h3>Snowflake Cortex AI</h3>
+      <div class="skill-tags">
+        <span class="tag tag-blue">Cortex Search</span>
+        <span class="tag tag-blue">Cortex Analyst</span>
+        <span class="tag tag-blue">Cortex Agents</span>
+        <span class="tag tag-blue">AI SQL</span>
+        <span class="tag tag-blue">MCP</span>
+        <span class="tag tag-blue">RAG</span>
+        <span class="tag tag-blue">LLM Integration</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">02 // Data Platforms</div>
+      <h3>Cloud Data &amp; Lakehouse</h3>
+      <div class="skill-tags">
+        <span class="tag tag-purple">Snowflake</span>
+        <span class="tag tag-purple">Databricks</span>
+        <span class="tag tag-purple">Delta Lake</span>
+        <span class="tag tag-purple">Apache Spark</span>
+        <span class="tag tag-purple">PySpark</span>
+        <span class="tag tag-purple">Airflow</span>
+        <span class="tag tag-purple">Kafka</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">03 // Cloud</div>
+      <h3>Multi-Cloud</h3>
+      <div class="skill-tags">
+        <span class="tag tag-orange">AWS EMR</span>
+        <span class="tag tag-orange">AWS EKS</span>
+        <span class="tag tag-orange">SageMaker</span>
+        <span class="tag tag-orange">Redshift</span>
+        <span class="tag tag-orange">GCP</span>
+        <span class="tag tag-orange">Azure</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">04 // MLOps</div>
+      <h3>ML &amp; AI Pipelines</h3>
+      <div class="skill-tags">
+        <span class="tag tag-green">ML Pipelines</span>
+        <span class="tag tag-green">Feature Stores</span>
+        <span class="tag tag-green">NLP</span>
+        <span class="tag tag-green">Model Deployment</span>
+        <span class="tag tag-green">Monitoring</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">05 // Infrastructure</div>
+      <h3>DevOps &amp; Platform</h3>
+      <div class="skill-tags">
+        <span class="tag tag-purple">Kubernetes</span>
+        <span class="tag tag-purple">Terraform</span>
+        <span class="tag tag-purple">Docker</span>
+        <span class="tag tag-purple">Jenkins</span>
+        <span class="tag tag-purple">Grafana</span>
+        <span class="tag tag-purple">Datadog</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">06 // Languages</div>
+      <h3>Programming</h3>
+      <div class="skill-tags">
+        <span class="tag tag-blue">Python</span>
+        <span class="tag tag-blue">SQL</span>
+        <span class="tag tag-blue">SnowSQL</span>
+        <span class="tag tag-blue">Java</span>
+        <span class="tag tag-blue">Shell</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-header">
+    <span class="section-label">03 // work_history</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="section-title">Experience</div>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:2.5rem;font-family:var(--font-mono)">// 15+ years across fintech, banking &amp; consulting</p>
+  <div class="timeline">
+
+    <div class="tl-item current">
+      <div class="tl-dot"></div>
+      <div class="tl-date">OCT 2024 — PRESENT</div>
+      <div class="tl-company">BARCLAYS BANK <span class="current-badge"><span class="status-dot"></span> current</span></div>
+      <div class="tl-title">Dev Lead — Snowflake Platform &amp; Cortex AI Engineering</div>
+      <div class="tl-location">Glasgow, UK</div>
+      <ul class="tl-bullets">
+        <li>Leading Snowflake Platform Engineering — <span class="tl-highlight">1,500+ users</span> across <span class="tl-highlight">10+ business units</span>, owning full AI feature rollout</li>
+        <li>Architected &amp; deployed <span class="tl-highlight">Cortex Search, Cortex Analyst, Cortex Agents, MCP &amp; AI SQL</span> at enterprise scale</li>
+        <li>Established Cortex AI as a firmwide engineering standard across all business units</li>
+        <li>Leading next-gen Enterprise Data Platform (EDP) — cloud Lakehouse unifying data products firmwide</li>
+        <li>Implemented IAM governance &amp; entitlement onboarding for regulated-industry compliance</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">APR 2024 — OCT 2024</div>
+      <div class="tl-company">KOTAK MAHINDRA BANK</div>
+      <div class="tl-title">Senior Software Development Engineer</div>
+      <div class="tl-location">Bengaluru, India</div>
+      <ul class="tl-bullets">
+        <li>Engineered automated API portal for partner onboarding, usage monitoring &amp; SLA verification</li>
+        <li>Stack: AWS, PySpark, Kubernetes, Spring Boot, Azure DevOps</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">NOV 2023 — MAR 2024</div>
+      <div class="tl-company">IMPETUS TECHNOLOGIES</div>
+      <div class="tl-title">Lead Engineer, Data &amp; Cloud</div>
+      <div class="tl-location">Bengaluru, India</div>
+      <ul class="tl-bullets">
+        <li>Architected cloud-native data warehouse unifying heterogeneous data sources</li>
+        <li>Automated Teradata &amp; Hadoop → Cloud migration, cutting manual effort by <span class="tl-highlight">70%</span></li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">AUG 2019 — AUG 2023</div>
+      <div class="tl-company">JPMORGAN CHASE &amp; CO.</div>
+      <div class="tl-title">Vice President — CTO Cloud, Data &amp; Feature Platforms</div>
+      <div class="tl-location">Glasgow, UK</div>
+      <ul class="tl-bullets">
+        <li>Delivered <span class="tl-highlight">$6M annual cloud cost savings</span> — adopted as firmwide governance framework</li>
+        <li>Built Crescendo Platform — production ML system for advanced client insights &amp; automated model deployment</li>
+        <li>ETL pipelines (Airflow + Snowflake) boosted data processing efficiency by <span class="tl-highlight">30%</span></li>
+        <li>Inducted into JPMC's global <span class="tl-highlight">Cloud Hall of Fame</span> — firm's highest engineering recognition</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">DEC 2011 — JUL 2019</div>
+      <div class="tl-company">TATA CONSULTANCY SERVICES</div>
+      <div class="tl-title">Assistant Consultant</div>
+      <div class="tl-location">Singapore</div>
+      <ul class="tl-bullets">
+        <li>Led 15+ engineer team delivering financial risk platforms for DBS Bank Singapore</li>
+        <li>Achieved <span class="tl-highlight">40% performance improvement</span> via big data optimisation</li>
+        <li>Built enterprise data lakes integrating Murex, Avaloq &amp; CLS financial systems</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<section id="certs">
+  <div class="section-header">
+    <span class="section-label">04 // credentials</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="section-title">Certifications</div>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:2rem;font-family:var(--font-mono)">// verified &amp; current</p>
+  <div class="cert-grid">
+    <div class="cert-card">
+      <div class="cert-icon aws">AWS</div>
+      <div><div class="cert-name">Solutions Architect Professional &amp; Associate</div><div class="cert-issuer">Amazon Web Services</div></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon aws">AWS</div>
+      <div><div class="cert-name">Machine Learning Specialty</div><div class="cert-issuer">Amazon Web Services</div></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon gcp">GCP</div>
+      <div><div class="cert-name">Professional Cloud Architect</div><div class="cert-issuer">Google Cloud</div></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon sf">SF</div>
+      <div><div class="cert-name">SnowPro Core Certification</div><div class="cert-issuer">Snowflake</div></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon db">DB</div>
+      <div><div class="cert-name">Lakehouse Fundamentals</div><div class="cert-issuer">Databricks</div></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon k8s">K8s</div>
+      <div><div class="cert-name">Certified Kubernetes Application Developer</div><div class="cert-issuer">CNCF — CKAD</div></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon tf">TF</div>
+      <div><div class="cert-name">Terraform Professional</div><div class="cert-issuer">HashiCorp</div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem">
+    <div class="section-title" style="font-size:1.2rem;margin-bottom:1.5rem">Awards &amp; Recognition</div>
+    <div class="awards-grid">
+      <div class="award-card">
+        <span class="award-icon">★</span>
+        <div class="award-title">Cloud Hall of Fame</div>
+        <div class="award-org">JPMorgan Chase — Global Recognition</div>
+      </div>
+      <div class="award-card">
+        <span class="award-icon">◈</span>
+        <div class="award-title">LEAP Nomination</div>
+        <div class="award-org">Leadership Engineering &amp; Advanced Programming</div>
+      </div>
+      <div class="award-card">
+        <span class="award-icon">◆</span>
+        <div class="award-title">Outstanding Contribution Award</div>
+        <div class="award-org">JPMorgan Chase</div>
+      </div>
+      <div class="award-card">
+        <span class="award-icon">◉</span>
+        <div class="award-title">CB Championship Award</div>
+        <div class="award-org">JPMorgan Chase</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="blog">
+  <div class="section-header">
+    <span class="section-label">05 // writing</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="section-title">Blog &amp; Articles</div>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:2rem;font-family:var(--font-mono)">// thoughts on AI platforms, data engineering &amp; scale</p>
+  <div class="blog-grid">
+    <div class="blog-card" onclick="sendPrompt('Help me write a LinkedIn article about rolling out Snowflake Cortex Search to 1500+ enterprise users')">
+      <div class="blog-tag">Cortex AI</div>
+      <div class="blog-title">Rolling out Cortex Search to 1,500 users at Barclays</div>
+      <div class="blog-excerpt">How we architected semantic search across a regulated enterprise — governance, IAM, and making AI accessible to non-technical business units.</div>
+      <div class="blog-meta"><span>Draft with Claude ↗</span></div>
+    </div>
+    <div class="blog-card" onclick="sendPrompt('Help me write a technical article about the architecture of Snowflake Cortex Agents vs traditional ML pipelines in banking')">
+      <div class="blog-tag">GenAI Architecture</div>
+      <div class="blog-title">Cortex Agents vs traditional ML pipelines in FinTech</div>
+      <div class="blog-excerpt">A practical comparison — when agentic AI simplifies your stack and when it adds unnecessary complexity in regulated environments.</div>
+      <div class="blog-meta"><span>Draft with Claude ↗</span></div>
+    </div>
+    <div class="blog-card" onclick="sendPrompt('Help me write an article about how I saved $6M in cloud costs at JPMorgan Chase — key strategies and lessons learned')">
+      <div class="blog-tag">Cloud Cost Optimisation</div>
+      <div class="blog-title">$6M saved: cloud cost optimisation at JPMC scale</div>
+      <div class="blog-excerpt">The strategies, tradeoffs, and political challenges of driving cost governance across AWS EMR, EKS, Redshift and EC2 at a global bank.</div>
+      <div class="blog-meta"><span>Draft with Claude ↗</span></div>
+    </div>
+    <div class="blog-card" onclick="sendPrompt('Help me write about staying relevant as a senior data engineer in 2026 with the rise of AI')">
+      <div class="blog-tag">Career</div>
+      <div class="blog-title">Staying irreplaceable as a senior data engineer in 2026</div>
+      <div class="blog-excerpt">15 years in. Here is how I think about building in public, owning the AI platform identity, and not becoming a commodity.</div>
+      <div class="blog-meta"><span>Draft with Claude ↗</span></div>
+    </div>
+    <div class="blog-card" onclick="sendPrompt('Help me write a technical deep-dive on Snowflake Cortex Analyst — natural language to SQL for enterprise analytics')">
+      <div class="blog-tag">Cortex Analyst</div>
+      <div class="blog-title">Natural language to SQL: Cortex Analyst in production</div>
+      <div class="blog-excerpt">What actually works when you let 1,500 users ask questions in plain English. Prompt design, guardrails, and surprising use cases.</div>
+      <div class="blog-meta"><span>Draft with Claude ↗</span></div>
+    </div>
+    <div class="blog-card" onclick="sendPrompt('Help me outline an article about enterprise data lakehouse architecture best practices in 2026')">
+      <div class="blog-tag">Data Architecture</div>
+      <div class="blog-title">Enterprise Lakehouse patterns for AI-first organisations</div>
+      <div class="blog-excerpt">How the lakehouse architecture has evolved now that AI is a first-class citizen — Delta Lake, Unity Catalog, and the data fabric layer.</div>
+      <div class="blog-meta"><span>Draft with Claude ↗</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header">
+    <span class="section-label">06 // contact</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="section-title">Get in Touch</div>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:2.5rem;font-family:var(--font-mono)">// open to senior IC, principal, and staff engineering roles</p>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-row">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><div class="contact-label">Email</div><div class="contact-text">anupkgh.22@gmail.com</div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6.29 6.29l.96-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><div class="contact-label">Phone</div><div class="contact-text">+44 7824 610987</div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="contact-label">Location</div><div class="contact-text">Glasgow, UK — open to remote</div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+        <div><div class="contact-label">LinkedIn</div><div class="contact-text">linkedin.com/in/anupkgh</div></div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input class="form-input" type="text" placeholder="Your name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="your@email.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-input form-textarea" placeholder="What are you working on?"></textarea>
+      </div>
+      <button class="form-submit">Send message →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2026 Anup Ghosh // built with code &amp; craft</span>
+  <div class="footer-links">
+    <a href="#">GitHub</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Resume</a>
+  </div>
+</footer>
